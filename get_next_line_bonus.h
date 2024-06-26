@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:55:02 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/24 18:29:57 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:52:03 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 #  define BUFFER_SIZE 4
 # endif
 # include <stddef.h>
+# include <sys/types.h>
 
 typedef struct s_fd_list
 {
 	int					fd;
-	size_t				leftover_size;
+	ssize_t				leftover_size;
 	char				*leftovers;
 	struct s_fd_list	*next;
 }						t_fd_list;

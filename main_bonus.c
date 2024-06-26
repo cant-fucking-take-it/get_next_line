@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:22:39 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/24 16:26:28 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:04:54 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,41 +19,53 @@
 
 int	main(int argc, char **argv)
 {
-	int		fd;
+	int		fds[--argc];
 	char	*line;
-	int		file_end;
 	int		i;
+	int		files;
 
-	i = 1;
+	i = 0;
 	line = NULL;
-	if (argc < 2)
+	if (argc < 1)
 	{
 		printf("Not enough arguments. Usage: "
 				"%s filename [filename...]\n",
 				argv[0]);
 		return (1);
 	}
+	argv++;
 	printf("Buffer Size is %d.\n", BUFFER_SIZE);
 	while (i < argc)
 	{
-		file_end = 0;
 		if (strlen(argv[i]) == 1 && (argv[i][0] == '0' || argv[i][0] == '1'
 				|| argv[i][0] == '2'))
-			fd = argv[i][0] - '0';
+			fds[i] = argv[i][0] - '0';
 		else
-			fd = open(argv[i], O_RDONLY);
-		printf("Reading from %d.\n", fd);
-		while (!file_end)
-		{
-			line = get_next_line(fd);
-			if (line)
-				printf("línia:\t\t %s", line);
-			else
-				file_end = 1;
-			free(line);
-		}
-		close(fd);
-		printf("\nwe are so fucking done.\n");
+			fds[i] = open(argv[i], O_RDONLY);
 		i++;
 	}
+	files = i;
+	while (files > 0)
+	{
+		while (i < argc)
+		{
+			if (fds[i] >= 0)
+			{
+				line = get_next_line(fds[i]);
+				if (line)
+					printf("fd #%i, file %s línia:\t\t %s", fds[i], argv[i], line);
+				else
+				{
+					close(fds[i]);
+					fds[i] = -1;
+					files--;
+				}
+				free(line);
+			}
+			i++;
+		}
+		i = 0;
+	}
+	printf("\nwe are so fucking done.\n");
+	i++;
 }

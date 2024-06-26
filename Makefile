@@ -15,13 +15,13 @@ NAME = get_next_line
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -I.
 
-all: $(NAME) Makefile
+all: $(NAME) Makefile $(HDR_FILES)
 
-$(NAME): main.c $(SRC_FILES) $(HDR_FILES)
+$(NAME): main.c $(OBJ_FILES)
 
-$(NAME)_bonus: main.c $(SRC_BONUS) $(HDR_BONUS)
+$(NAME)_bonus: main_bonus.c $(OBJ_BONUS) 
 
-bonus: $(NAME)_bonus
+bonus: $(NAME)_bonus Makefile $(HDR_BONUS)
 
 test: CFLAGS += -fsanitize=address
 test: all tests.o Makefile
