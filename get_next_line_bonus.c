@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:07:13 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/26 15:53:07 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:54:45 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
@@ -138,8 +138,7 @@ char	*get_next_line(int fd)
 	if (!node->leftovers || node->leftover_size == 0
 		|| ft_memchr_idx(node->leftovers, '\n', node->leftover_size) == -1)
 	{
-		if (get_next_buffer(fd, &node->leftovers,
-				(size_t *)&node->leftover_size) > 0)
+		if (get_next_buffer(fd, &node->leftovers, &node->leftover_size) > 0)
 			return (pop_fd(fd, &lst_head));
 	}
 	line_len = ft_memchr_idx(node->leftovers, '\n', node->leftover_size) + 1;

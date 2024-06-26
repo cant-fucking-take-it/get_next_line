@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:07:13 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/26 15:47:11 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:38:54 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -96,21 +96,16 @@ int	manage_leftovers(char **leftovers, size_t leftover_size, int line_len)
 char	*get_next_line(int fd)
 {
 	static char		*leftovers = NULL;
-	static ssize_t	leftover_size = 0;
+	static size_t	leftover_size = 0;
 	char			*line;
 	int				line_len;
 
-	if (fd < 0 || leftover_size == -1)
+	if (fd < 0)
 		return (NULL);
 	if (!leftovers || leftover_size == 0 || ft_memchr_idx(leftovers, '\n',
 			leftover_size) == -1)
-	{
-		if (get_next_buffer(fd, &leftovers, (size_t *)&leftover_size) > 0)
-		{
-			leftover_size = -1;
-			return (leftovers);
-		}
-	}
+		if (get_next_buffer(fd, &leftovers, &leftover_size) > 0)
+			return (NULL);
 	line_len = ft_memchr_idx(leftovers, '\n', leftover_size) + 1;
 	if (line_len == 0)
 		line_len = leftover_size;
