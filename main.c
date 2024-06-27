@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:22:39 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/24 16:26:28 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:23:28 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+#include <limits.h>
 #include <unistd.h>
 
 int	main(int argc, char **argv)
@@ -33,7 +35,9 @@ int	main(int argc, char **argv)
 				argv[0]);
 		return (1);
 	}
-	printf("Buffer Size is %d.\n", BUFFER_SIZE);
+	printf("Buffer Size is %lu.\n", REAL_BUFF);
+	printf("SIZE_MAX is %lu.\n", SIZE_MAX);
+	printf("SSIZE_MAX is %lu.\n", SSIZE_MAX);
 	while (i < argc)
 	{
 		file_end = 0;

@@ -42,7 +42,7 @@ int	return_on_error(void *to_free, int return_value)
 	return (return_value);
 }
 
-// reads in BUFFER_SIZE'd chunks from fd, until a \n is read (or file ends)
+// reads in REAL_BUFF'd chunks from fd, until a \n is read (or file ends)
 // writes to leftovers and updates it's size
 // returns 0 if everything is ok, 1 on file error/end, 2 on malloc error.
 int	get_next_buffer(int fd, char **leftovers, size_t *leftover_size)
@@ -50,14 +50,14 @@ int	get_next_buffer(int fd, char **leftovers, size_t *leftover_size)
 	char	*new_buf;
 	ssize_t	read_bytes;
 
-	read_bytes = BUFFER_SIZE;
-	new_buf = ft_calloc(BUFFER_SIZE, 1);
+	read_bytes = REAL_BUFF;
+	new_buf = ft_calloc(REAL_BUFF, 1);
 	if (!new_buf)
 		return (1);
 	while (ft_memchr_idx(new_buf, '\n', read_bytes) == -1
-		&& read_bytes == BUFFER_SIZE)
+		&& read_bytes == REAL_BUFF)
 	{
-		read_bytes = read(fd, new_buf, BUFFER_SIZE);
+		read_bytes = read(fd, new_buf, REAL_BUFF);
 		if (read_bytes < 0)
 			return (return_on_error(new_buf, 1));
 		*leftovers = grow_buf(*leftovers, new_buf, *leftover_size, read_bytes);

@@ -6,19 +6,25 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:16:23 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/24 17:18:48 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:30:20 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
+# include <stddef.h>
+# include <limits.h>
 # define GET_NEXT_LINE_H
 # if BUFFER_SIZE < 1
 #  undef BUFFER_SIZE
 # endif
+# if BUFFER_SIZE > SSIZE_MAX
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE SSIZE_MAX
+# endif
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 4
 # endif
-# include <stddef.h>
+# define REAL_BUFF ((size_t)BUFFER_SIZE)
 
 char	*grow_buf(char *old_buf, char *new_buf, size_t buf_size,
 			size_t extra_size);

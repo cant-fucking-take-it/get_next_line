@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:22:39 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/26 15:04:54 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:50:53 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	argv++;
-	printf("Buffer Size is %d.\n", BUFFER_SIZE);
+	printf("Buffer Size is %zu.\n", REAL_BUFF);
 	while (i < argc)
 	{
 		if (strlen(argv[i]) == 1 && (argv[i][0] == '0' || argv[i][0] == '1'
@@ -45,23 +45,21 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	files = i;
+	printf("we have %d files\n", files);
 	while (files > 0)
 	{
 		while (i < argc)
 		{
-			if (fds[i] >= 0)
-			{
-				line = get_next_line(fds[i]);
-				if (line)
-					printf("fd #%i, file %s línia:\t\t %s", fds[i], argv[i], line);
-				else
-				{
+			line = get_next_line(fds[i]);
+			printf("fd #%i, file \"%s\" línia:\t\t %s", fds[i], argv[i], line);
+			if (!line && fds[i] >= 0) {
+				printf("\nfd #%i is isn't giving lines, "
+					"file \"%s\". removing.\n", fds[i], argv[i]);
 					close(fds[i]);
-					fds[i] = -1;
-					files--;
-				}
-				free(line);
+				fds[i] = -1;
+				files--;
 			}
+			free(line);
 			i++;
 		}
 		i = 0;
