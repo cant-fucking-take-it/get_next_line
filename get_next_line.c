@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:07:13 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/24 16:38:54 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:49:32 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -58,7 +58,7 @@ int	get_next_buffer(int fd, char **leftovers, size_t *leftover_size)
 		&& read_bytes == BUFFER_SIZE)
 	{
 		read_bytes = read(fd, new_buf, BUFFER_SIZE);
-		if (read_bytes <= 0)
+		if (read_bytes < 0)
 			return (return_on_error(new_buf, 1));
 		*leftovers = grow_buf(*leftovers, new_buf, *leftover_size, read_bytes);
 		if (!*leftovers)

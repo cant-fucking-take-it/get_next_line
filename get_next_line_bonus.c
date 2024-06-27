@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:07:13 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/24 18:54:45 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:50:58 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
@@ -81,7 +81,7 @@ int	get_next_buffer(int fd, char **leftovers, size_t *leftover_size)
 	while (ft_memchr_idx(new_buf, '\n', rb) == -1 && rb == BUFFER_SIZE)
 	{
 		rb = read(fd, new_buf, BUFFER_SIZE);
-		if (rb <= 0)
+		if (rb < 0)
 		{
 			free(new_buf);
 			return (1);
