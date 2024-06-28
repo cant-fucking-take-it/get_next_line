@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:22:39 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/27 11:50:53 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:47:30 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	argv++;
-	printf("Buffer Size is %zu.\n", REAL_BUFF);
+	printf("Buffer Size is %d.\n", BUFFER_SIZE);
 	while (i < argc)
 	{
 		if (strlen(argv[i]) == 1 && (argv[i][0] == '0' || argv[i][0] == '1'
