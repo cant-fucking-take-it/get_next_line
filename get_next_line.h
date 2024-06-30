@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:16:23 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/30 16:59:54 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/30 20:39:00 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # include <stddef.h>
 # include <limits.h>
 # define GET_NEXT_LINE_H
-# if BUFFER_SIZE < 1
+# if BUFFER_SIZE < 1LU
 #  undef BUFFER_SIZE
+#  define BUFFER_SIZE 1LU
 # endif
 # if BUFFER_SIZE > SSIZE_MAX
 #  undef BUFFER_SIZE
