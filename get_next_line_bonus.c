@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:07:13 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/30 19:01:22 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/30 19:20:00 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
@@ -31,23 +31,23 @@ void	*pop_fd(int fd, t_fd_list **head)
 		free(list_iter);
 		return (NULL);
 	}
-	prev = list_iter;
-	list_iter = list_iter->next;
-	while (list_iter)
+	while (list_iter->next)
 	{
+		prev = list_iter;
+		list_iter = list_iter->next;
 		if (list_iter->fd == fd)
 		{
 			prev->next = list_iter->next;
 			free(list_iter);
 			return (NULL);
 		}
-		prev = list_iter;
-		list_iter = list_iter->next;
 	}
 	return (NULL);
 }
 
 // grows a buffer by appending a new buffer to it.
+// (actually it just copies the existing and the new data over to a new buffer)
+// frees the new buffer and returns NULL if the buffer couldn't be grown
 char	*grow_buf(char *old_buf, char *new_buf, size_t buf_size,
 		size_t extra_size)
 {
@@ -59,7 +59,10 @@ char	*grow_buf(char *old_buf, char *new_buf, size_t buf_size,
 		return (old_buf);
 	buf = malloc(buf_size + extra_size);
 	if (!buf)
+	{
+		free(new_buf);
 		return (NULL);
+	}
 	if (old_buf)
 		ft_memcpy(buf, old_buf, buf_size);
 	ft_memcpy(&(buf[buf_size]), new_buf, extra_size);
@@ -76,6 +79,7 @@ int	get_next_buffer(int fd, char **leftovers, size_t *leftover_size)
 	ssize_t	rb;
 
 	new_buf = malloc(BUFFER_SIZE);
+	ft_bzero(new_buf, BUFFER_SIZE);
 	rb = BUFFER_SIZE;
 	if (!new_buf)
 		return (1);
@@ -89,10 +93,7 @@ int	get_next_buffer(int fd, char **leftovers, size_t *leftover_size)
 		}
 		*leftovers = grow_buf(*leftovers, new_buf, *leftover_size, rb);
 		if (!*leftovers)
-		{
-			free(new_buf);
 			return (2);
-		}
 		*leftover_size += rb;
 	}
 	free(new_buf);
