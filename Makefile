@@ -17,9 +17,9 @@ CFLAGS = -Wall -Wextra -Werror -g -I.
 
 all: $(NAME) Makefile $(HDR_FILES)
 
-$(NAME): main.c $(OBJ_FILES)
+$(NAME): main.o $(OBJ_FILES)
 
-$(NAME)_bonus: main_bonus.c $(OBJ_BONUS) 
+$(NAME)_bonus: main_bonus.o $(OBJ_BONUS) 
 
 bonus: $(NAME)_bonus Makefile $(HDR_BONUS)
 
