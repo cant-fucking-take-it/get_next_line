@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:07:13 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/30 17:32:47 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/30 19:01:22 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
@@ -25,23 +25,24 @@ void	*pop_fd(int fd, t_fd_list **head)
 	if (!*head)
 		return (NULL);
 	list_iter = *head;
-	if (list_iter->fd == fd)
+	if ((*head)->fd == fd)
 	{
-		prev = list_iter->next;
-		free(*head);
-		*head = prev;
+		*head = list_iter->next;
+		free(list_iter);
 		return (NULL);
 	}
-	while (list_iter->next)
+	prev = list_iter;
+	list_iter = list_iter->next;
+	while (list_iter)
 	{
-		prev = list_iter;
-		list_iter = list_iter->next;
 		if (list_iter->fd == fd)
 		{
 			prev->next = list_iter->next;
 			free(list_iter);
 			return (NULL);
 		}
+		prev = list_iter;
+		list_iter = list_iter->next;
 	}
 	return (NULL);
 }

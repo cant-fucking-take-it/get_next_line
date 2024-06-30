@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:22:39 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/30 17:31:25 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:58:27 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int argc, char **argv)
 	int		i;
 	int		files;
 
-	int a = 0;
 	i = 0;
 	line = NULL;
 	if (argc < 1)
@@ -43,33 +42,25 @@ int	main(int argc, char **argv)
 			fds[i] = argv[i][0] - '0';
 		else
 			fds[i] = open(argv[i], O_RDONLY);
-		if (fds[i] >= 0)
-			i++;
+		i++;
 	}
 	files = i;
 	printf("we have %d files\n", files);
-	while (files > 0 && a++ > -1)
+	while (files > 0)
 	{
 		while (i < argc)
 		{
-			if (fds[i] >= 0)
-			{
-				line = get_next_line(fds[i]);
-				printf("fd #%i, file \"%s\" línia:\t\t %s", fds[i], argv[i],
-					line);
-				if (!line)
-				{
-					printf("\nfd #%i is isn't giving lines, "
-							"file \"%s\". removing.\n",
-							fds[i],
-							argv[i]);
+			line = get_next_line(fds[i]);
+			printf("fd #%i, file \"%s\" línia:\t\t %s", fds[i], argv[i], line);
+			if (!line && fds[i] >= 0) {
+				printf("\nfd #%i is isn't giving lines, "
+					"file \"%s\". removing.\n", fds[i], argv[i]);
 					close(fds[i]);
-					fds[i] = -1;
-					files--;
-				}
-				free(line);
-				i++;
+				fds[i] = -1;
+				files--;
 			}
+			free(line);
+			i++;
 		}
 		i = 0;
 	}
