@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:15:21 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/24 18:26:39 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:50:10 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
@@ -93,15 +93,16 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-void	ft_bzero(void *ptr, size_t n)
+void	*ft_bzero(void *ptr, size_t n)
 {
 	size_t	i;
 	char	*my_ptr;
 
 	if (!ptr)
-		return ;
+		return (NULL);
 	i = 0;
 	my_ptr = ptr;
 	while (i < n)
 		my_ptr[i++] = 0;
+	return (my_ptr);
 }

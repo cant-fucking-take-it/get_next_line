@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:55:02 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/30 16:59:59 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:49:52 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ t_fd_list				*new_fd(int fd, t_fd_list *head);
 t_fd_list				*fd_picker(int fd, t_fd_list **head);
 int						ft_memchr_idx(const char *s, int c, size_t n);
 void					*ft_memcpy(void *dest, const void *src, size_t n);
-void					ft_bzero(void *ptr, size_t n);
+void					*ft_bzero(void *ptr, size_t n);
 #endif

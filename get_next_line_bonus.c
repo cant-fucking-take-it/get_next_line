@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:07:13 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/30 19:20:00 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:49:22 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
@@ -78,8 +78,7 @@ int	get_next_buffer(int fd, char **leftovers, size_t *leftover_size)
 	char	*new_buf;
 	ssize_t	rb;
 
-	new_buf = malloc(BUFFER_SIZE);
-	ft_bzero(new_buf, BUFFER_SIZE);
+	new_buf = ft_bzero(malloc(BUFFER_SIZE), BUFFER_SIZE);
 	rb = BUFFER_SIZE;
 	if (!new_buf)
 		return (1);
@@ -89,11 +88,14 @@ int	get_next_buffer(int fd, char **leftovers, size_t *leftover_size)
 		if (rb < 0)
 		{
 			free(new_buf);
-			return (1);
+			return (2);
 		}
 		*leftovers = grow_buf(*leftovers, new_buf, *leftover_size, rb);
 		if (!*leftovers)
-			return (2);
+		{
+			free(new_buf);
+			return (3);
+		}
 		*leftover_size += rb;
 	}
 	free(new_buf);
