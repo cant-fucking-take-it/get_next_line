@@ -6,17 +6,17 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:22:39 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/30 16:51:54 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:00:43 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h>
+#include <limits.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdint.h>
-#include <limits.h>
 #include <unistd.h>
 
 int	main(int argc, char **argv)
@@ -25,7 +25,9 @@ int	main(int argc, char **argv)
 	char	*line;
 	int		file_end;
 	int		i;
+	size_t	buf_size;
 
+	buf_size = BUFFER_SIZE;
 	i = 1;
 	line = NULL;
 	if (argc < 2)
@@ -35,7 +37,7 @@ int	main(int argc, char **argv)
 				argv[0]);
 		return (1);
 	}
-	printf("Buffer Size is %lu.\n", BUFFER_SIZE);
+	printf("Buffer Size is %lu.\n", buf_size);
 	while (i < argc)
 	{
 		file_end = 0;
